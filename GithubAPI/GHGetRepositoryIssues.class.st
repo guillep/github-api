@@ -3,10 +3,18 @@ Class {
 	#superclass : #GHGetRequest,
 	#instVars : [
 		'repositoryName',
-		'ownerName'
+		'ownerName',
+		'state'
 	],
-	#category : 'GithubAPI-Requests'
+	#category : #'GithubAPI-Requests'
 }
+
+{ #category : #request }
+GHGetRepositoryIssues >> initialize [
+
+	super initialize.
+	state := 'all'
+]
 
 { #category : #accessing }
 GHGetRepositoryIssues >> ownerName: aString [ 
@@ -16,7 +24,7 @@ GHGetRepositoryIssues >> ownerName: aString [
 { #category : #request }
 GHGetRepositoryIssues >> queryArguments [
 	
-	^ #()
+	^ { 'state' -> state } asDictionary
 ]
 
 { #category : #accessing }
