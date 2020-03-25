@@ -31,7 +31,7 @@ Class {
 		'response',
 		'github'
 	],
-	#category : 'GithubAPI-Core'
+	#category : #'GithubAPI-Core'
 }
 
 { #category : #accessing }
@@ -70,9 +70,11 @@ GHResponse >> links [
 	
 	^ links collect: [ :linkString | | linkArray rel url |
 		"<https://api.github.com/resource?page=2>; rel=""next"""
-		linkArray := linkString substrings: ';'.
-		rel := linkArray second trim copyFrom: 'rel="' size + 1 to: linkArray second size - 2.
-		url := linkArray first  trim copyFrom: 2  to: linkArray first  size - 1.
+		linkArray := linkString substrings: '>;'.
+		rel := linkArray second trim.
+		rel := rel copyFrom: 'rel="' size + 1 to: rel size - 1.
+		url := linkArray first  trim.
+		url := url copyFrom: 2 to: url size.
 		GHLink new
 			rel: rel;
 			url: url;
